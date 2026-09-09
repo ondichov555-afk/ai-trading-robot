@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trading Robot - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                <i class="fas fa-robot"></i> AI Trading Robot
+            </span>
+            <span id="statusBadge" class="badge bg-warning">Idle</span>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <!-- Control Panel -->
+        <div class="row mb-4">
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-sliders-h"></i> Control Panel</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Trading Mode</label>
+                            <select id="modeSelect" class="form-select">
+                                <option value="paper">Paper Trading (Simulation)</option>
+                                <option value="live">Live Trading (Real Money)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Historical Days</label>
+                            <input type="number" id="daysInput" class="form-control" value="60" min="7">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="initBtn" class="btn btn-primary">
+                                <i class="fas fa-play"></i> Initialize Bot
+                            </button>
+                            <button id="trainBtn" class="btn btn-info" disabled>
+                                <i class="fas fa-brain"></i> Train Model
+                            </button>
+                        </div>
+                        <hr>
+                        <div class="d-grid gap-2">
+                            <button id="backtestBtn" class="btn btn-warning" disabled>
+                                <i class="fas fa-chart-line"></i> Run Backtest
+                            </button>
+                            <button id="startBtn" class="btn btn-success" disabled>
+                                <i class="fas fa-play-circle"></i> Start Trading
+                            </button>
+                            <button id="stopBtn" class="btn btn-danger" disabled>
+                                <i class="fas fa-stop-circle"></i> Stop Trading
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Panel -->
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-info-circle"></i> Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <small class="text-muted">Status</small>
+                                <h6 id="statusText">Not Initialized</h6>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <small class="text-muted">Trading</small>
+                                <h6 id="tradingText">Inactive</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <small class="text-muted">Mode</small>
+                                <h6 id="modeText">-</h6>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <small class="text-muted">Symbol</small>
+                                <h6 id="symbolText">-</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <small class="text-muted">Model</small>
+                                <h6 id="modelText">-</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Status -->
+        <div class="row mb-4">
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h6 class="text-muted">Balance</h6>
+                        <h3 id="balanceText" class="text-primary">$0.00</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h6 class="text-muted">Open Positions</h6>
+                        <h3 id="positionsText" class="text-info">0</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h6 class="text-muted">Closed Trades</h6>
+                        <h3 id="tradesText" class="text-success">0</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logs -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="fas fa-scroll"></i> Activity Log</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="logContainer" style="height: 300px; overflow-y: auto; background: #f8f9fa; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.85rem;">
+                            <p class="text-muted">Logs will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
